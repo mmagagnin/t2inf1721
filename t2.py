@@ -20,19 +20,9 @@ posicao vazia -> movimento possivel a partir de outra posicao
 8 -> 7 right || 5 down || 9 left 
 '''
 
-def criaGrafo(l):
-    g={
-        "p1":l[0],
-        "p2":l[1],
-        "p3":l[2],
-        "p4":l[3],
-        "p5":l[4],
-        "p6":l[5],
-        "p7":l[6],
-        "p8":l[7],
-        "p9":l[8]
-    }
-    return g
+from re import X
+
+x=1
 
 def imprimeTabuleiro(g):
     s=""
@@ -66,42 +56,59 @@ def validaTroca(ini,fin):
     else:
         return False
 
-def invertePos(g,n0,l):
-    posicao="p"+str(n0)
-    pos0=list(g.keys())[list(g.values()).index(0)]
-    if validaTroca(int(pos0[1]),n0):
-        nc=g
-        aux=g[posicao]
-        nc[pos0]=aux
-        nc[posicao]=0
-        l.append(nc)
-        return nc
-    else:
-        return "TROCA NAO VALIDA"
+def createNewConfigName(i,cfg):
+    myVars=vars()
+    s="cfg"+str(i)
+    myVars[s]=cfg
+    return s
 
-listaConfigs=[]
+def cfgsValidos(cfg1,cfg2):
+    zero1=list(cfg1.keys())[list(cfg1.values()).index(0)]
+    zero2=list(cfg2.keys())[list(cfg2.values()).index(0)]
+    validaTroca(zero1,zero2)
+
+
+dicConfigs={}
 dAdj={}
 
 class Grafo:
-    def __init__(self,cfg,pecas):
+    def __init__(self,cfg,d):
+        global x
+        x+=1
         self.config=cfg
-        self.pecas=pecas
-        self.dic=criaGrafo(pecas)
-        listaConfigs.append(self.dic)
+        self.dic=d
+        d[self.config]=self.dic
 
     def __str__(self):
         s=imprimeTabuleiro(self.dic)
         return s
 
-    def troca(self,novaPos0):
-        nc=invertePos(self.dic,novaPos0,listaConfigs)
-        return nc
+    def atualistaDAdj(self,cfg2,dAdj):
+        lCfg=dAdj.get(cfg1,[])
+        lCfg.append(cfg2)
+        dAdj[cfg1]=lCfg
+        return dAdj
 
-pecasg1=[1,2,3,4,5,6,7,8,0]
-g1=Grafo("cfg1",pecasg1)
-print(g1.dic)
-print(g1)
-g2=g1.troca(8)
-print("\n")
-print(g2)
-print(dAdj)
+    def troca(self,n0):
+        posicao="p"+str(n0)
+        pos0=list(self.dic.keys())[list(self.dic.values()).index(0)]
+        if validaTroca(int(pos0[1]),n0):
+            nc=self.dic
+            aux=nc[posicao]
+            nc[pos0]=aux
+            nc[posicao]=0
+            global x
+            name=createNewConfigName(x,nc)
+            x+=1
+            dicConfigs[name]=nc
+        else:
+            return "TROCA NAO VALIDA"
+        
+
+g1={'p1': 1, 'p2': 2, 'p3': 3, 'p4': 0, 'p5': 4, 'p6': 6, 'p7': 7, 'p8': 8, 'p9': 5}
+cfg1=Grafo("cfg1",g1)
+print(cfg1.dic)
+print(cfg1)
+cfg2=cfg1.troca(7)
+print(dicConfigs)
+#print(dAdj)
