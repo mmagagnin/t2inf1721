@@ -68,9 +68,14 @@ def cfgsValidos(cfg1,cfg2):
     validaTroca(zero1,zero2)
 
 def atualizaDAdj(cfg1,cfg2,dAdj):
+        #lista 1
         lCfg=dAdj.get(cfg1,[])
         lCfg.append(cfg2)
         dAdj[cfg1]=lCfg
+        #lista 2
+        lCfg2=dAdj.get(cfg2,[])
+        lCfg2.append(cfg1)
+        dAdj[cfg2]=lCfg2
         return dAdj
 
 dicConfigs={}
