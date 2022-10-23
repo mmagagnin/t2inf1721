@@ -67,6 +67,11 @@ def cfgsValidos(cfg1,cfg2):
     zero2=list(cfg2.keys())[list(cfg2.values()).index(0)]
     validaTroca(zero1,zero2)
 
+def atualizaDAdj(cfg1,cfg2,dAdj):
+        lCfg=dAdj.get(cfg1,[])
+        lCfg.append(cfg2)
+        dAdj[cfg1]=lCfg
+        return dAdj
 
 dicConfigs={}
 dAdj={}
@@ -83,12 +88,6 @@ class Grafo:
         s=imprimeTabuleiro(self.dic)
         return s
 
-    def atualistaDAdj(self,cfg2,dAdj):
-        lCfg=dAdj.get(cfg1,[])
-        lCfg.append(cfg2)
-        dAdj[cfg1]=lCfg
-        return dAdj
-
     def troca(self,n0):
         posicao="p"+str(n0)
         pos0=list(self.dic.keys())[list(self.dic.values()).index(0)]
@@ -101,6 +100,7 @@ class Grafo:
             name=createNewConfigName(x,nc)
             x+=1
             dicConfigs[name]=nc
+            atualizaDAdj(self.config,name,dAdj)
         else:
             return "TROCA NAO VALIDA"
         
@@ -111,4 +111,5 @@ print(cfg1.dic)
 print(cfg1)
 cfg2=cfg1.troca(7)
 print(dicConfigs)
-#print(dAdj)
+print(dAdj)
+
