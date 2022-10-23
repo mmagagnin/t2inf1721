@@ -96,3 +96,12 @@ class Grafo:
     def troca(self,novaPos0):
         nc=invertePos(self.dic,novaPos0,listaConfigs)
         return nc
+
+pecasg1=[1,2,3,4,5,6,7,8,0]
+g1=Grafo("cfg1",pecasg1)
+print(g1.dic)
+print(g1)
+g2=g1.troca(8)
+print("\n")
+print(g2)
+print(dAdj)
