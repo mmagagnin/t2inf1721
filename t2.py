@@ -67,7 +67,18 @@ def cfgsValidos(cfg1,cfg2):
     zero2=list(cfg2.keys())[list(cfg2.values()).index(0)]
     validaTroca(zero1,zero2)
 
-def atualizaDAdj(cfg1,cfg2,dAdj):
+def removeCfgRepetida(dConfig,dAdj,cfg):
+    lChaves=list(dConfig.keys())
+    for i in range(len(lChaves)-1):
+        if dConfig[lChaves[i]]==dConfig[cfg]:
+            dConfig.pop(cfg) #essa linha nao esta funcionado - INVESTIGAR!
+            dAdj.pop(cfg)
+            for (c,l) in dAdj.items():
+                if cfg in l:
+                    l.remove(cfg)
+    return
+
+def atualizaDAdj(cfg1,cfg2,dAdj,dConfigs):
         #lista 1
         lCfg=dAdj.get(cfg1,[])
         lCfg.append(cfg2)
@@ -76,6 +87,8 @@ def atualizaDAdj(cfg1,cfg2,dAdj):
         lCfg2=dAdj.get(cfg2,[])
         lCfg2.append(cfg1)
         dAdj[cfg2]=lCfg2
+        #vê se a configuracao é repetida
+        removeCfgRepetida(dConfigs,dAdj,cfg2)
         return dAdj
 
 dicConfigs={}
@@ -105,16 +118,30 @@ class Grafo:
             name=createNewConfigName(x,nc)
             x+=1
             dicConfigs[name]=nc
-            atualizaDAdj(self.config,name,dAdj)
+            atualizaDAdj(self.config,name,dAdj,dicConfigs)
+            return nc
         else:
             return "TROCA NAO VALIDA"
         
 
 g1={'p1': 1, 'p2': 2, 'p3': 3, 'p4': 0, 'p5': 4, 'p6': 6, 'p7': 7, 'p8': 8, 'p9': 5}
 cfg1=Grafo("cfg1",g1)
-print(cfg1.dic)
+print("CFG1:")
 print(cfg1)
-cfg2=cfg1.troca(7)
+
+g2=cfg1.troca(7)
+cfg2=Grafo("cfg2",g2)
+print("CFG2:")
+print(cfg2)
 print(dicConfigs)
 print(dAdj)
+
+g3=cfg2.troca(4)
+cfg3=Grafo("cfg3",g2)
+print("CFG3:")
+print(cfg3)
+print(dicConfigs)
+print(dAdj)
+
+
 

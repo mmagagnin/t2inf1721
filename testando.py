@@ -94,4 +94,14 @@ def cfgsValidos(cfg1,cfg2):
     zero1=list(cfg1.keys())[list(cfg1.values()).index(0)]
     zero2=list(cfg2.keys())[list(cfg2.values()).index(0)]
     validaTroca(zero1,zero2)
-    
+
+d=[1,2]
+
+def lala(d):
+    d[0]=2
+    return 
+
+lala(d)
+
+print(d)
+
