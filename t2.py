@@ -96,11 +96,15 @@ dAdj={}
 
 class Grafo:
     def __init__(self,cfg,d):
-        global x
-        x+=1
-        self.config=cfg
-        self.dic=d
-        d[self.config]=self.dic
+        if type(d)==str:
+            print("CFG NAO VALIDA")
+            return None
+        else:
+            global x
+            x+=1
+            self.config=cfg
+            self.dic=d
+            d[self.config]=self.dic
 
     def __str__(self):
         s=imprimeTabuleiro(self.dic)
@@ -137,11 +141,13 @@ print(dicConfigs)
 print(dAdj)
 
 g3=cfg2.troca(4)
-cfg3=Grafo("cfg3",g2)
+cfg3=Grafo("cfg3",g3)
 print("CFG3:")
 print(cfg3)
 print(dicConfigs)
 print(dAdj)
 
+g4=cfg3.troca(8)
+cfg4=Grafo("cfg4",g4)
 
 
