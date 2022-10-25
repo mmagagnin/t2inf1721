@@ -68,17 +68,6 @@ def cfgsValidos(cfg1,cfg2):
     zero2=list(cfg2.keys())[list(cfg2.values()).index(0)]
     validaTroca(zero1,zero2)
 
-def removeCfgRepetida(dConfig,dAdj,cfg):
-    lChaves=list(dConfig.keys())
-    for i in range(len(lChaves)-1):
-        if dConfig[lChaves[i]]==dConfig[cfg]:
-            dConfig.pop(cfg) #essa linha nao esta funcionado - INVESTIGAR!
-            dAdj.pop(cfg)
-            for (c,l) in dAdj.items():
-                if cfg in l:
-                    l.remove(cfg)
-    return
-
 def atualizaDAdj(cfg1,cfg2,dAdj,dConfigs):
         #lista 1
         lCfg=dAdj.get(cfg1,[])
@@ -98,59 +87,16 @@ dAdj={}
 
 class Grafo:
     def __init__(self,cfg,d):
-        if type(d)==str:
-            print("CFG NAO VALIDA")
-            return None
-        else:
-            global x
-            x+=1
-            self.config=cfg
-            self.dic=d
-            d[self.config]=self.dic
+        self.config=cfg
+        self.dic=d
+        d[self.config]=self.dic
 
     def __str__(self):
         s=imprimeTabuleiro(self.dic)
         return s
 
-    def troca(self,n0):
-        posicao="p"+str(n0)
-        pos0=list(self.dic.keys())[list(self.dic.values()).index(0)]
-        if validaTroca(int(pos0[1]),n0):
-            nc=self.dic
-            aux=nc[posicao]
-            nc[pos0]=aux
-            nc[posicao]=0
-            global x
-            name=createNewConfigName(x,nc)
-            x+=1
-            dicConfigs[name]=nc
-            atualizaDAdj(self.config,name,dAdj,dicConfigs)
-            return nc
-        else:
-            return "TROCA NAO VALIDA"
-        
 
-g1={'p1': 1, 'p2': 2, 'p3': 3, 'p4': 0, 'p5': 4, 'p6': 6, 'p7': 7, 'p8': 8, 'p9': 5}
-cfg1=Grafo("cfg1",g1)
-print("CFG1:")
-print(g1)
-print(cfg1)
+for i in range(0,len(lTuplas)):
 
-g2=cfg1.troca(7)
-cfg2=Grafo("cfg2",g2)
-print("CFG2:")
-print(cfg2)
-print(dicConfigs)
-print(dAdj)
-'''
-g3=cfg2.troca(4)
-cfg3=Grafo("cfg3",g3)
-print("CFG3:")
-print(cfg3)
-print(dicConfigs)
-print(dAdj)
-
-g4=cfg3.troca(8)
-cfg4=Grafo("cfg4",g4)
-'''
-
+    createNewConfigName(i+1,lTuplas[i])
+    break
