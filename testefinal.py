@@ -225,5 +225,5 @@ fDAdj.write(json_dAdj)
 fDAdj.close()
 
 respostas=open("respostas.txt","w")
-respostas.write(exportar))
+respostas.write(exportar)
 respostas.close()
