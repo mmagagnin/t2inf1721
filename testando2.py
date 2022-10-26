@@ -1,4 +1,5 @@
 import copy
+from re import X
 
 def invertePos(g,n0):
     posicao="p"+str(n0)
@@ -93,3 +94,10 @@ print()
 #print(imprimeTabuleiro(nc))
 l=arestas(g1)
 print(l)
+
+def lalalala():
+    global y
+    return y+1
+
+y=1
+print(lalalala())

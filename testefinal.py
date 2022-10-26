@@ -184,7 +184,7 @@ ultima_camada = camadas_bfs_cfg1[indice_ultima_camada]
 #Podemos pegar qualquer nó da última camada
 no_maior_caminho_mais_curto = random.sample(ultima_camada,1)[0]
 
-print("Nó com o maior caminho mais curto até cfg1 =>",no_maior_caminho_mais_curto)
+print("Nó com o maior caminho mais curto de %s até %s"%(configuracao,no_maior_caminho_mais_curto))
 print("Tamanho do caminho = %d"%indice_ultima_camada) 
 
 maior_caminho_mais_curto = [no_maior_caminho_mais_curto]
