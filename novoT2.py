@@ -184,8 +184,12 @@ print()
 print(list(dicConfigs.keys())[list(dicConfigs.values()).index(g2)])
 print(imprimeTabuleiro(g2))
 
+json_dConfigs=json.dumps(dicConfigs)
+fDConfigs=open("dconfigs.json","w")
+fDConfigs.write(json_dConfigs)
+fDConfigs.close()
 
-print("dicConfigs criado")
+print("dicConfigs criado e exportado")
 
 #print(dicConfigs)
 
@@ -197,8 +201,12 @@ for (nome,cfg) in dicConfigs.items():
         lAdjs.append(nomeConfig)
     dAdj[nome]=lAdjs
 
-#print(dAdj)
-print("dAdj criado")
+json_dAdj=json.dumps(dAdj)
+fDAdj=open("dadj.json","w")
+fDAdj.write(json_dAdj)
+fDAdj.close()
+
+print("dAdj criado e exportado")
 
 exportar=""
 
@@ -233,10 +241,11 @@ ultima_camada = camadas_bfs_cfg1[indice_ultima_camada]
 #Podemos pegar qualquer nó da última camada
 no_maior_caminho_mais_curto = random.sample(ultima_camada,1)[0]
 
-s="Nó com o maior caminho mais curto até %s => %s"%(configuracao,no_maior_caminho_mais_curto)
+s="Nó com o maior caminho mais curto de %s até %s"%(configuracao,no_maior_caminho_mais_curto)
 print(s)
-exportar+=s
-s="Tamanho do caminho = %d"%indice_ultima_camada[0]
+exportar=exportar+s+"\n"
+
+s="Tamanho do caminho = %d"%indice_ultima_camada
 print(s)
 exportar=exportar+s+"\n"
 
@@ -246,7 +255,7 @@ for i in range(0,indice_ultima_camada):
     maior_caminho_mais_curto.append(parents[no_corrente])
     no_corrente = parents[no_corrente]
 
-s="O maior caminho mais curto ate a configuracao dada é: %d"%maior_caminho_mais_curto
+s="O maior caminho mais curto ate a configuracao dada é:"+str(maior_caminho_mais_curto)
 print(s)
 exportar=exportar+s+"\n"
 
@@ -258,16 +267,7 @@ for el in maior_caminho_mais_curto:
 #iremos exportar o dicConfig e o dAdj para .json
 #as outras respostas serao exportadas para .txt
 
-json_dConfigs=json.dumps(dConfigs)
-fDConfigs=open("dconfigs.json","w")
-fDConfigs.write(json_dConfigs)
-fDConfigs.close()
-
-json_dAdj=json.dumps(dAdj)
-fDAdj=open("dadj.json","w")
-fDAdj.write(json_dAdj)
-fDAdj.close()
 
 respostas=open("respostas.txt","w")
-respostas.write(s)
+respostas.write(exportar)
 respostas.close

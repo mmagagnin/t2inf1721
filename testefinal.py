@@ -191,7 +191,7 @@ no_maior_caminho_mais_curto = random.sample(ultima_camada,1)[0]
 
 s="Nó com o maior caminho mais curto de %s até %s"%(configuracao,no_maior_caminho_mais_curto)
 print(s)
-exportar+=s
+exportar=exportar+s+"\n"
 s="Tamanho do caminho = %d"%indice_ultima_camada
 print(s)
 exportar=exportar+s+"\n"
@@ -225,5 +225,5 @@ fDAdj.write(json_dAdj)
 fDAdj.close()
 
 respostas=open("respostas.txt","w")
-respostas.write(s)
+respostas.write(exportar))
 respostas.close()
