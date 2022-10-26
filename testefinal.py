@@ -23,6 +23,7 @@ posicao vazia -> movimento possivel a partir de outra posicao
 import itertools
 import copy
 import random
+import json
 
 #bloco de funcoes
 #tarefa 1
@@ -156,6 +157,8 @@ for (nome,cfg) in dicConfigs.items():
 print(dAdj)
 print("dAdj criado")
 
+exportar=""
+
 #tarefa 2
 parents = dict(keys=dicConfigs.keys())
 visited = dict(keys=dicConfigs.keys())
@@ -165,7 +168,9 @@ for key in dicConfigs.keys():
     visited[key] = False
 
 components = BFS(dAdj)
-print("A quantidade de componentes conexos no grafo é %d"%len(components))
+s="A quantidade de componentes conexos no grafo é %d"%len(components)
+print(s)
+exportar=exportar+s+"\n"
 
 #tarefa 3
 for key in dicConfigs.keys():
@@ -184,8 +189,12 @@ ultima_camada = camadas_bfs_cfg1[indice_ultima_camada]
 #Podemos pegar qualquer nó da última camada
 no_maior_caminho_mais_curto = random.sample(ultima_camada,1)[0]
 
-print("Nó com o maior caminho mais curto de %s até %s"%(configuracao,no_maior_caminho_mais_curto))
-print("Tamanho do caminho = %d"%indice_ultima_camada) 
+s="Nó com o maior caminho mais curto de %s até %s"%(configuracao,no_maior_caminho_mais_curto)
+print(s)
+exportar+=s
+s="Tamanho do caminho = %d"%indice_ultima_camada
+print(s)
+exportar=exportar+s+"\n"
 
 maior_caminho_mais_curto = [no_maior_caminho_mais_curto]
 no_corrente = no_maior_caminho_mais_curto
@@ -193,9 +202,28 @@ for i in range(0,indice_ultima_camada):
     maior_caminho_mais_curto.append(parents[no_corrente])
     no_corrente = parents[no_corrente]
 
-print("O maior caminho mais curto ate a configuracao dada é:")
-print(maior_caminho_mais_curto)
+s="O maior caminho mais curto ate a configuracao dada é:"+str(maior_caminho_mais_curto)
+print(s)
+exportar=exportar+s+"\n"
 
 for el in maior_caminho_mais_curto:
     print("Proximo movimento:")
     print(imprimeTabuleiro(dicConfigs[el]))
+
+    #exportando os resultados
+#iremos exportar o dicConfig e o dAdj para .json
+#as outras respostas serao exportadas para .txt
+
+json_dConfigs=json.dumps(dicConfigs)
+fDConfigs=open("dconfigs.json","w")
+fDConfigs.write(json_dConfigs)
+fDConfigs.close()
+
+json_dAdj=json.dumps(dAdj)
+fDAdj=open("dadj.json","w")
+fDAdj.write(json_dAdj)
+fDAdj.close()
+
+respostas=open("respostas.txt","w")
+respostas.write(s)
+respostas.close()
