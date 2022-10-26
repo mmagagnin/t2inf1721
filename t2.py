@@ -20,6 +20,7 @@ posicao vazia -> movimento possivel a partir de outra posicao
 8 -> 7 right || 5 down || 9 left 
 '''
 
+import itertools
 from re import X
 
 x=1
@@ -91,6 +92,7 @@ def atualizaDAdj(cfg1,cfg2,dAdj,dConfigs):
         removeCfgRepetida(dConfigs,dAdj,cfg2)
         return dAdj
 
+lTuplas=list(itertools.permutations([0,1,2,3,4,5,6,7,8]))
 dicConfigs={}
 dAdj={}
 
@@ -131,6 +133,7 @@ class Grafo:
 g1={'p1': 1, 'p2': 2, 'p3': 3, 'p4': 0, 'p5': 4, 'p6': 6, 'p7': 7, 'p8': 8, 'p9': 5}
 cfg1=Grafo("cfg1",g1)
 print("CFG1:")
+print(g1)
 print(cfg1)
 
 g2=cfg1.troca(7)
@@ -139,7 +142,7 @@ print("CFG2:")
 print(cfg2)
 print(dicConfigs)
 print(dAdj)
-
+'''
 g3=cfg2.troca(4)
 cfg3=Grafo("cfg3",g3)
 print("CFG3:")
@@ -149,5 +152,5 @@ print(dAdj)
 
 g4=cfg3.troca(8)
 cfg4=Grafo("cfg4",g4)
-
+'''
 

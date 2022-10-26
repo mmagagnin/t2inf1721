@@ -1,3 +1,4 @@
+'''
 def imprimeTabuleiro(l):
     s=""
     for i in range(0,9):
@@ -8,7 +9,7 @@ def imprimeTabuleiro(l):
     return s
 
 #print(imprimeTabuleiro([1,2,3,4,5,6,7,8,0])) #funciona!
-
+'''
 '''
 tabuleiro e regras:
 1 2 3
@@ -31,7 +32,7 @@ posicao vazia -> movimento possivel a partir de outra posicao
 8 -> 7 right || 5 down || 9 left 
 9 -> 6 down || 8 right
 '''
-
+'''
 #funcao que cria nova configuracao de grafo apos um movimento
 
 def validaTroca(ini,fin):
@@ -98,10 +99,24 @@ def cfgsValidos(cfg1,cfg2):
 d=[1,2]
 
 def lala(d):
-    d[0]=2
+    d["a"]=2
     return 
 
 lala(d)
 
 print(d)
+
+'''
+
+def configuraTupla(t):
+    d={}
+    for i in range(0,len(t)):
+        nome="p"+str(i+1)
+        d[nome]=t[i]
+    return d
+
+t=(0,1,2)
+
+d=configuraTupla(t)
+print(list(d.keys())[list(d.values()).index(0)])
 
